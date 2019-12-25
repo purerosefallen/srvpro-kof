@@ -158,7 +158,7 @@ this.init = (client) => {
 	}
 	client.update_duel = (id, score1, score2, winner) => { 
 		var duel = lookup(client.duels, id);
-		var kof = lookup(client.kofs, duel.id);
+		var kof = lookup(client.kofs, duel.belongs_to);
 		duel.scores[0] = score1;
 		duel.scores[1] = score2;
 		client.log.info("score updated", id, score1, score2, winner)
