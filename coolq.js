@@ -62,5 +62,5 @@ this.init = (client) => {
 			}
 		}
 	});
-	client.bot.listen(options.port, options.address);
+	client.bot.listen(client.options.port, client.options.address);
 }
