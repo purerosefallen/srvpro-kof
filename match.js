@@ -24,7 +24,7 @@ this.init = (client) => {
 	client.send_format_kof = (kof) => {
 		var ret = 	"战队：" + kof.teams[0].name + " VS " + kof.teams[1].name + "\n" +
 					"时间：" + kof.time.format("YYYY.MM.DD") + "\n" +
-					"规则：" + (kof.is_kof ? "KOF" : "人头赛") + "\n" +
+					"规则：" + (kof.is_kof ? "2/3【KOF】" : "人头赛") + "\n" +
 					"地点：" + kof.chat.group_id + "\n" + 
 			"------第一轮------" + "\n";
 		for (var duel of kof.rounds[0]) { 
