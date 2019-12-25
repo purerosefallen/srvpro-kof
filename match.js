@@ -98,9 +98,9 @@ this.init = (client) => {
 		var ready_players = []
 		for (var i = 0; i < 2; ++i) { 
 			var list = [];
-			for (player of kof.teams[i].players) { 
+			for (var player of kof.teams[i].players) { 
 				if (!client.is_player_elimated(player)) {
-					list.push(player)
+					list.push(player);
 				}
 			}
 			if (!list.length) { 
