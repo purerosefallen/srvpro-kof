@@ -24,7 +24,7 @@ this.init = (client, options) => {
 		switch (parsed_msg[0]) { 
 			case "/create": {
 				if (lines.length < 3) {
-					client.send_help()
+					client.send_help(data)
 					return;
 				}
 				const time = moment();
@@ -35,13 +35,13 @@ this.init = (client, options) => {
 					const line_txt = lines[i + 1].trim();
 					const temp1 = line_txt.match(/^(.+?)[:\uff1a](.+)$/);
 					if (!temp1) { 
-						client.send_help();
+						client.send_help(data);
 						return;
 					}
 					const team_name = temp1[1].trim();
 					const team_player_names = temp1[2].trim().split(/ +/);
 					if (!team_player_names.length) { 
-						client.send_help();
+						client.send_help(data);
 						return;
 					}
 					teams.push({
