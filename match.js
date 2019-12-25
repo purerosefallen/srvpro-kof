@@ -91,7 +91,7 @@ this.init = (client) => {
 			state: "pending"
 		}
 		client.duels.push(duel);
-		client.log.info("duel created", id, kof.id, player1, player2);
+		client.log.info("duel created", duel.id, kof.id, player1, player2);
 		return duel;
 	}
 	client.create_round = (kof) => { 
