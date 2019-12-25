@@ -15,12 +15,12 @@ this.init = (client, options) => {
 	}
 	client.bot.on("message", (data) => {
 		const msg = data.message.trim();
-		const line = msg.split("\n");
-		if (!data.group_id || !line[0] || !line[0].startsWith("/")) { 
+		const lines = msg.split("\n");
+		if (!data.group_id || !lines[0] || !lines[0].startsWith("/")) { 
 			return;
 		}
 		client.log.info("message", msg);
-		const parsed_msg = line[0].split(" ");
+		const parsed_msg = lines[0].split(" ");
 		switch (parsed_msg[0]) { 
 			case "/create": {
 				if (lines.length < 3) {
@@ -33,7 +33,7 @@ this.init = (client, options) => {
 				const teams = [];
 				const line_txts = [];
 				for (var i = 0; i < 2; ++i) { 
-					const line_txt = line[i + 1];
+					const line_txt = lines[i + 1];
 					const temp = line_txt.split(" ");
 					if (temp.length < 2) { 
 						client.send_help();
