@@ -71,7 +71,7 @@ this.init = (client) => {
 	client.is_player_elimated = (kof, id) => { 
 		for (var round of kof.rounds) { 
 			for (var duel of round) { 
-				if (duel.state === "complete" && duel.winner !== id && duel.winner !== "tie") { 
+				if (duel.state === "complete" && (duel.players[0] === id || duel.players[1] === id) && duel.winner !== id && duel.winner !== "tie") { 
 					return true;
 				}
 			}
