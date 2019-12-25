@@ -99,7 +99,7 @@ this.init = (client) => {
 		for (var i = 0; i < 2; ++i) { 
 			var list = [];
 			for (var player of kof.teams[i].players) { 
-				if (!client.is_player_elimated(player)) {
+				if (!client.is_player_elimated(kof, player)) {
 					list.push(player);
 				}
 			}
