@@ -21,8 +21,8 @@ this.init = (client) => {
 				ret.push({
 					match: {
 						id: duel.id,
-						player1Id: duel.players[0].id,
-						player2Id: duel.players[1].id,
+						player1Id: duel.players[0],
+						player2Id: duel.players[1],
 						winnerId: duel.winner,
 						state: duel.state
 					}
