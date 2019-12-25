@@ -160,7 +160,7 @@ this.init = (client) => {
 		var kof = lookup(client.kof, duel.id);
 		duel.scores[0] = score1;
 		duel.scores[1] = score2;
-		client.log.info(id, score1, score2, winner)
+		client.log.info("score updated", id, score1, score2, winner)
 		if (winner) { 
 			duel.winner = winner;
 			duel.state = "complete";
@@ -172,6 +172,7 @@ this.init = (client) => {
 			}
 			client.send_format_kof(kof);
 			if (kof.finished) { 
+				client.log.info("kof finished", kof.id)
 				const index = client.kofs.indexOf(kof)
 				if (index !== -1) { 
 					client.kofs.splice(index, 1)
