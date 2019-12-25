@@ -1,0 +1,29 @@
+{
+  "name": "srvpro-kof",
+  "version": "1.0.0",
+  "description": "A module for replacing Challonge for SRVPro, intracting with CoolQ creating KOF matches ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purerosefallen/srvpro-kof.git"
+  },
+  "keywords": [
+    "srvpro",
+    "ygopro",
+    "kof"
+  ],
+  "author": "Nanahira",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/purerosefallen/srvpro-kof/issues"
+  },
+  "homepage": "https://github.com/purerosefallen/srvpro-kof#readme",
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "cqhttp": "^1.1.1",
+    "moment": "^2.24.0"
+  }
+}
