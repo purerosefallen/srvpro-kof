@@ -11,7 +11,7 @@ this.init = (client, options) => {
 		client.bot("send_msg", send_data);
 	}
 	client.send_help = (data) => { 
-		client.reply(data, "输入\n/create [人头赛|KOF]\nA队名 A队员1 A队员2 A队员3 ...\nB队员1 B队员2 B队员3 ...\n即可创建比赛。");
+		client.reply(data, "输入\n/create [人头赛|KOF]\nA队名 A队员1 A队员2 A队员3 ...\nB队名 B队员1 B队员2 B队员3 ...\n即可创建比赛。");
 	}
 	client.bot.on("message", (data) => {
 		const msg = data.message.trim();
