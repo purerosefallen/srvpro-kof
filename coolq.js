@@ -15,7 +15,7 @@ this.init = (client, options) => {
 	}
 	client.bot.on("message", (data) => {
 		const msg = data.message.trim();
-		const lines = msg.split("\n");
+		const line = msg.split("\n");
 		if (!data.group_id || !line[0] || !line[0].startsWith("/")) { 
 			return;
 		}

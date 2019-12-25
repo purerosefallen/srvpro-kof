@@ -3,7 +3,7 @@ const srvpro = require('./srvpro');
 const match = require('./match');
 const coolq = require('./coolq');
 const bunyan = require('bunyan');
-exports.createClient =(options) => {
+exports.createClient = (options) => {
 	var client = {};
 	client.log = bunyan.createLogger({
 		name: "kof"
