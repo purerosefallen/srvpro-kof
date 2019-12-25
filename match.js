@@ -143,7 +143,7 @@ this.init = (client) => {
 		client.log.info("kof created", kof.id, place, is_kof, teams[0].name, teams[1].name);
 		client.kofs.push(kof);
 		client.create_round(kof);
-		client.reply(chat, "比赛创建成功。")
+		client.reply(chat, "比赛创建成功。请双方队员进入服务器 " + client.options.server_ip + " " + client.options.server_port + " 参加比赛。");
 		client.send_format_kof(kof);
 		return kof;
 	}

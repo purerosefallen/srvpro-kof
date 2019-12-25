@@ -8,8 +8,9 @@ exports.createClient = (options) => {
 	client.log = bunyan.createLogger({
 		name: "kof"
 	});
+	client.options = options;
 	match.init(client);
 	srvpro.init(client);
-	coolq.init(client, options);
+	coolq.init(client);
 	return client;
 }

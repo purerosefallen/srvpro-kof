@@ -1,8 +1,8 @@
 "use strict";
 const CQHttp = require('cqhttp');
 const moment = require('moment');
-this.init = (client, options) => { 
-	client.bot = new CQHttp(options.launch);
+this.init = (client) => { 
+	client.bot = new CQHttp(client.options.launch);
 	client.reply = (data, rep) => { 
 		const send_data = {
 			...data,
