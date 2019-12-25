@@ -37,7 +37,7 @@ this.init = (client) => {
 		const scores = result.scoresCsv.split("-");
 		const score1 = parseInt(scores[0]);
 		const score2 = parseInt(scores[1]);
-		const winner = data.winnerId;
+		const winner = result.winnerId;
 		client.update_duel(id, score1, score2, winner);
 	}
 }
