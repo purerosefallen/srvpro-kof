@@ -39,7 +39,11 @@ this.init = (client, options) => {
 						return;
 					}
 					const team_name = temp1[1].trim();
-					const team_player_names = temp1[2].trim().split(/ +/));
+					const team_player_names = temp1[2].trim().split(/ +/);
+					if (!team_player_names.length) { 
+						client.send_help();
+						return;
+					}
 					teams.push({
 						name: team_name,
 						player_names: team_player_names
