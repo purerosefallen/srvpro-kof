@@ -54,12 +54,12 @@ this.init = (client) => {
 		return new_user;
 	}
 	client.check_player_unique = (player) => { 
-		for (kof of client.kofs) { 
+		for (var kof of client.kofs) { 
 			if (kof.finished) {
 				continue;
 			}
-			for (team of kof.teams) { 
-				for (exist_id of team.players) { 
+			for (var team of kof.teams) { 
+				for (var exist_id of team.players) { 
 					if (player.id === exist_id) { 
 						return false;
 					}
