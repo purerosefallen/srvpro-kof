@@ -14,6 +14,9 @@ this.init = (client) => {
 		}
 		data.callback(null, ret);
 	}
+	client.participants.create = (data) => { 
+		//place holder
+	}
 	client.matches.index = (data) => { 
 		var ret = [];
 		for (var duel of client.duels) { 
