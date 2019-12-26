@@ -62,5 +62,18 @@ this.init = (client) => {
 			}
 		}
 	});
+	if (client.options.auto_accept_request) { 
+		client.bot.on("request", (data) => { 
+			if (data.request_type === "friend" || (data.request_type === "group" && data.sub_type === "invite")) {
+				var res = true;
+				if (client.options.accept_password && data.comment !== client.options.accept_password) {
+					res = false;
+				}
+				return {
+					approve: res
+				}
+			}
+		})
+	}
 	client.bot.listen(client.options.port, client.options.address);
 }

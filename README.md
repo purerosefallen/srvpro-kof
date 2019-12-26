@@ -14,13 +14,17 @@ eg.
           "accessToken": "11",
           "secret": "22"
         },
-		"port": 57302,
-		"address": "0.0.0.0",
+		    "port": 57302,
+		    "address": "0.0.0.0",
         "server_ip": "koishi.momobako.com",
-        "server_port": 797
+        "server_port": 797,
+        "auto_accept_request": false,
+        "accept_password": "123"
       },
 ```
 
 * `launch`: The lanuch config for CoolQ HTTP API.
 * `port` `address`: The address and port the CoolQ HTTP API server listens at.
 * `server_ip` `server_port`: The YGOPro server info displayed at creating matches.
+* `auto_accept_request`: If true, the bot would auto request incoming request adding friend or being invited to groups.
+* `accept_passwor:d`: The password for friend or group requests. Null for no password. 
