@@ -68,15 +68,15 @@ this.init = (client) => {
 		}
 		return true;
 	}
-	client.is_player_elimated = (kof, id) => { 
+	client.is_player_available = (kof, id) => { 
 		for (var round of kof.rounds) { 
 			for (var duel of round) { 
-				if (duel.state === "complete" && (duel.players[0] === id || duel.players[1] === id) && duel.winner !== id && duel.winner !== "tie") { 
-					return true;
+				if ((duel.players[0] === id || duel.players[1] === id) && ((duel.state === "complete" && duel.winner !== id && duel.winner !== "tie") || duel.state === "pending")) { 
+					return false;
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	client.create_duel = (kof, player1, player2) => { 
 		var duel = {
@@ -99,7 +99,7 @@ this.init = (client) => {
 		for (var i = 0; i < 2; ++i) { 
 			var list = [];
 			for (var player of kof.teams[i].players) { 
-				if (!client.is_player_elimated(kof, player)) {
+				if (client.is_player_available(kof, player)) {
 					list.push(player);
 				}
 			}
@@ -148,10 +148,11 @@ this.init = (client) => {
 		return kof;
 	}
 	client.is_all_duels_finished = (kof) => { 
-		const round = kof.rounds[kof.rounds.length - 1];
-		for (var duel of round) { 
-			if (duel.state !== "complete") { 
-				return false;
+		for (var round of kof.rounds) { 
+			for (var duel of round) { 
+				if (duel.state !== "complete") { 
+					return false;
+				}
 			}
 		}
 		return true;
@@ -165,11 +166,12 @@ this.init = (client) => {
 		if (winner) { 
 			duel.winner = winner;
 			duel.state = "complete";
+			if (!kof.is_kof) { 
+				client.create_round(kof);
+			}
 			if (client.is_all_duels_finished(kof)) { 
-				if (!kof.is_kof || !client.create_round(kof)) { 
-					kof.finished = true;
-					client.reply(kof.chat, "比赛结束。")
-				}
+				kof.finished = true;
+				client.reply(kof.chat, "比赛结束。")
 			}
 			client.send_format_kof(kof);
 			if (kof.finished) { 
