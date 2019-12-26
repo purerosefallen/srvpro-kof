@@ -14,8 +14,8 @@ eg.
           "accessToken": "11",
           "secret": "22"
         },
-		    "port": 57302,
-		    "address": "0.0.0.0",
+        "port": 57302,
+        "address": "0.0.0.0",
         "server_ip": "koishi.momobako.com",
         "server_port": 797,
         "auto_accept_request": false,
