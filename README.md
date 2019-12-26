@@ -27,4 +27,4 @@ eg.
 * `port` `address`: The address and port the CoolQ HTTP API server listens at.
 * `server_ip` `server_port`: The YGOPro server info displayed at creating matches.
 * `auto_accept_request`: If true, the bot would auto request incoming request adding friend or being invited to groups.
-* `accept_passwor:d`: The password for friend or group requests. Null for no password. 
+* `accept_password`: The password for friend or group requests. Null for no password. 
