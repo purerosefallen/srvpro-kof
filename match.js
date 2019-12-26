@@ -166,7 +166,7 @@ this.init = (client) => {
 		if (winner) { 
 			duel.winner = winner;
 			duel.state = "complete";
-			if (!kof.is_kof) { 
+			if (kof.is_kof) { 
 				client.create_round(kof);
 			}
 			if (client.is_all_duels_finished(kof)) { 
