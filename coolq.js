@@ -20,7 +20,7 @@ this.init = (client) => {
 			return;
 		}
 		client.log.info("message", msg);
-		const parsed_msg = lines[0].split(" ");
+		const parsed_msg = lines[0].split(/ +/);
 		switch (parsed_msg[0]) { 
 			case "/create": {
 				if (lines.length < 3) {
