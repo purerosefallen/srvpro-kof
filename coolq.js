@@ -57,7 +57,7 @@ this.init = (client) => {
 							options.dry_run = true;
 							break;
 						}
-						case "space": { 
+						case "comma": { 
 							options.use_comma = true;
 							break;
 						}
