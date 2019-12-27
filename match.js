@@ -119,12 +119,12 @@ this.init = (client) => {
 		client.log.info("round created", kof.id, kof.rounds.length);
 		return round;
 	}
-	client.create_kof = (chat, teams, time, place, is_kof) => { 
+	client.create_kof = (chat, teams, time, place, options) => { 
 		var kof = {
 			id: ++client.id,
 			time: time,
 			place: place,
-			is_kof: is_kof,
+			is_kof: options.is_kof,
 			chat: chat,
 			teams: teams,
 			rounds: []
@@ -133,7 +133,7 @@ this.init = (client) => {
 			team.players = [];
 			for (var player_name of team.player_names) { 
 				const player = client.get_player(player_name);
-				if (!client.check_player_unique(player)) { 
+				if (!options.dry_run && !client.check_player_unique(player)) { 
 					client.reply(chat, "无法创建比赛。玩家 " + player.name + "正在进行其他比赛。");
 					return false;
 				}
@@ -143,8 +143,14 @@ this.init = (client) => {
 		client.log.info("kof created", kof.id, place, is_kof, teams[0].name, teams[1].name);
 		client.kofs.push(kof);
 		client.create_round(kof);
-		client.reply(chat, "比赛创建成功。请双方队员进入服务器 " + client.options.server_ip + " " + client.options.server_port + " 参加比赛。");
+		if (!options.dry_run) { 
+			client.reply(chat, "比赛创建成功。请双方队员进入服务器 " + client.options.server_ip + " " + client.options.server_port + " 参加比赛。");
+		}
 		client.send_format_kof(kof);
+		if (options.dry_run) { 
+			client.delete_kof(kof);
+			return null;
+		}
 		return kof;
 	}
 	client.is_all_duels_finished = (kof) => { 
@@ -157,12 +163,29 @@ this.init = (client) => {
 		}
 		return true;
 	}
+	client.delete_duel = (duel) => { 
+		const index = client.duels.indexOf(duel)
+		if (index !== -1) { 
+			client.duels.splice(index, 1);
+		} 
+	}
+	client.delete_kof = (kof) => { 
+		for (var round of kof.rounds) { 
+			for (var duel of round) { 
+				client.delete_duel(duel);
+			}
+		}
+		const index = client.kofs.indexOf(kof);
+		if (index !== -1) { 
+			client.kofs.splice(index, 1);
+		}
+	}
 	client.update_duel = (id, score1, score2, winner) => { 
 		var duel = lookup(client.duels, id);
 		var kof = lookup(client.kofs, duel.belongs_to);
 		duel.scores[0] = score1;
 		duel.scores[1] = score2;
-		client.log.info("score updated", id, score1, score2, winner)
+		client.log.info("score updated", id, score1, score2, winner);
 		if (winner) { 
 			duel.winner = winner;
 			duel.state = "complete";
@@ -171,15 +194,12 @@ this.init = (client) => {
 			}
 			if (client.is_all_duels_finished(kof)) { 
 				kof.finished = true;
-				client.reply(kof.chat, "比赛结束。")
+				client.reply(kof.chat, "比赛结束。");
 			}
 			client.send_format_kof(kof);
 			if (kof.finished) { 
-				client.log.info("kof finished", kof.id)
-				const index = client.kofs.indexOf(kof)
-				if (index !== -1) { 
-					client.kofs.splice(index, 1)
-				}
+				client.log.info("kof finished", kof.id);
+				client.delete_kof(kof);
 			}
 		}
 	}

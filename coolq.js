@@ -13,10 +13,16 @@ this.init = (client) => {
 	client.send_help = (data) => { 
 		client.reply(data,
 			"输入" + "\n" +
-			"/create 人头赛|KOF" + "\n" +
+			"/create 选项1 选项2 ..." + "\n" +
 			"A队名：A队员1，A队员2，A队员3，..." + "\n" +
 			"B队名：B队员1，B队员2，B队员3，..." + "\n" +
-			"即可创建比赛。"
+			"即可创建比赛。" + "\n" +
+			"" + "\n" +
+			"选项列表：" + "\n" +
+			"head 创建人头赛。" + "\n" +
+			"kof 创建KOF比赛。（默认）" + "\n" +
+			"dry 只排表不在服务器创建比赛。" + "\n" +
+			"comma 用逗号分隔队员。"
 		);
 	}
 	client.bot.on("message", (data) => {
@@ -34,7 +40,29 @@ this.init = (client) => {
 					return;
 				}
 				const time = moment();
-				const is_kof = (!parsed_msg[1] || !parsed_msg[1].startsWith("人头"));
+				var options = {
+					is_kof: true,
+					dry_run: false,
+					use_comma: false
+				};
+				for (var i = 1; i < parsed_msg.length; ++i) { 
+					const option_txt = parsed_msg[i];
+					switch (option_txt) { 
+						case "head":
+						case "人头赛": { 
+							options.is_kof = false;
+							break;
+						}
+						case "dry": { 
+							options.dry_run = true;
+							break;
+						}
+						case "space": { 
+							options.use_comma = true;
+							break;
+						}
+					}
+				}
 				const place = data.group_id;
 				const teams = [];
 				for (var i = 0; i < 2; ++i) { 
@@ -45,7 +73,13 @@ this.init = (client) => {
 						return;
 					}
 					const team_name = temp1[1].trim();
-					const team_player_names = temp1[2].trim().split(/[,\uff0c]+/);
+					var team_player_names;
+					const team_player_names_raw = temp1[2].trim();
+					if (options.use_comma) {
+						team_player_names = team_player_names_raw.split(/[,\uff0c]+/);
+					} else { 
+						team_player_names = team_player_names_raw.split(/ +/);
+					}
 					if (!team_player_names.length) { 
 						client.send_help(data);
 						return;
@@ -59,7 +93,7 @@ this.init = (client) => {
 					client.reply(data, "双方队员数量不一致。");
 					return;
 				}
-				client.create_kof(data, teams, time, place, is_kof);
+				client.create_kof(data, teams, time, place, options);
 				break;
 			}
 			default: { 
