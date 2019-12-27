@@ -11,7 +11,13 @@ this.init = (client) => {
 		client.bot("send_msg", send_data);
 	}
 	client.send_help = (data) => { 
-		client.reply(data, "输入\n/create 人头赛|KOF\nA队名：A队员1 A队员2 A队员3 ...\nB队名：B队员1 B队员2 B队员3 ...\n即可创建比赛。");
+		client.reply(data,
+			"输入" + "\n" +
+			"/create 人头赛|KOF" + "\n" +
+			"A队名：A队员1，A队员2，A队员3，..." + "\n" +
+			"B队名：B队员1，B队员2，B队员3，..." + "\n" +
+			"即可创建比赛。"
+		);
 	}
 	client.bot.on("message", (data) => {
 		const msg = data.message.trim();
@@ -39,7 +45,7 @@ this.init = (client) => {
 						return;
 					}
 					const team_name = temp1[1].trim();
-					const team_player_names = temp1[2].trim().split(/ +/);
+					const team_player_names = temp1[2].trim().split(/[,\uff0c]+/);
 					if (!team_player_names.length) { 
 						client.send_help(data);
 						return;
