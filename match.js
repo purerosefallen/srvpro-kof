@@ -140,7 +140,7 @@ this.init = (client) => {
 				team.players.push(player.id);
 			}
 		}
-		client.log.info("kof created", kof.id, place, is_kof, teams[0].name, teams[1].name);
+		client.log.info("kof created", kof.id, place, options.is_kof, teams[0].name, teams[1].name);
 		client.kofs.push(kof);
 		client.create_round(kof);
 		if (!options.dry_run) { 
